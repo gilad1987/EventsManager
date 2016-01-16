@@ -21,6 +21,11 @@ You can pass the target
 ```javascript
 var targetElement = document.getElementById('test');
 
+// event name
+// handler to apply
+// context that handler will be apply with
+// target 
+
 eventsManager.on('eventName',handler,null,targetElement);
 ```
 
