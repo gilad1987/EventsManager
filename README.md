@@ -12,19 +12,19 @@ var eventsManager = new EventsManager();
 **(2)** Subscribe to event:
 
 ```javascript
-function node1(){console.log('node1');}
+function handler(){console.log('node1');}
 eventsManager.on('test',node1);
 ```
 
 You can pass the target
 ```javascript
-var testElement = document.getElementById('test');
-eventsManager.on('test',node1,null,testElement);
+var targetElement = document.getElementById('test');
+eventsManager.on('eventName',handler,null,targetElement);
 ```
 
 **(3)** Subscribe to event:
 ```javascript
-eventsManager.trigger('test',testElement,'bla','asdasdasd','asda','qweqwe');
+eventsManager.trigger('eventName',targetElement,'param2','param3','param4','etc ...');
 ```
 
 
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded',function(){
     eventsManager.on('test',node6,null,testElement);
 
 
-    eventsManager.trigger('test',testElement,'bla','asdasdasd','asda','qweqwe');
+    eventsManager.trigger('test',testElement,'param1','param2','param3','param4','etc ...');
 
 });
 ```
