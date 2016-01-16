@@ -31,7 +31,7 @@ eventsManager.on('eventName',handler,null,targetElement);
 
 **(3)** Trigger event:
 
-You can pass arguments to the function
+You can pass arguments to function
 
 ```javascript
 
