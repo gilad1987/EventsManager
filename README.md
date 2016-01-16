@@ -10,8 +10,9 @@ var eventsManager = new EventsManager();
 ```
 
 **(2)** Subscribe to event:
-function node1(){console.log('node1');}
+
 ```javascript
+function node1(){console.log('node1');}
 eventsManager.on('test',node1);
 ```
 
