@@ -2,6 +2,32 @@
 
 ## Get start
 
+**(1)** Get instance:
+```javascript
+
+var eventsManager = new EventsManager();
+
+```
+
+**(2)** Subscribe to event:
+function node1(){console.log('node1');}
+```javascript
+eventsManager.on('test',node1);
+```
+
+You can pass the target
+```javascript
+var testElement = document.getElementById('test');
+eventsManager.on('test',node1,null,testElement);
+```
+
+**(3)** Subscribe to event:
+```javascript
+eventsManager.trigger('test',testElement,'bla','asdasdasd','asda','qweqwe');
+```
+
+
+
 ```javascript
 document.addEventListener('DOMContentLoaded',function(){
 
