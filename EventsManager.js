@@ -68,7 +68,7 @@ EventsManager.prototype.on = function on(eventName, handler, context, target){
     handlers.push(node);
 
 
-    if(handlers.length>=2){
+    if(handlers.length>1){
         var prev = handlers[ handlers.length -2];
         node.previous = prev;
         prev.next = node;
