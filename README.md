@@ -13,12 +13,14 @@ var eventsManager = new EventsManager();
 
 ```javascript
 function handler(){console.log('node1');}
-eventsManager.on('test',node1);
+
+eventsManager.on('test',handler);
 ```
 
 You can pass the target
 ```javascript
 var targetElement = document.getElementById('test');
+
 eventsManager.on('eventName',handler,null,targetElement);
 ```
 
