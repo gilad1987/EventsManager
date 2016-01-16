@@ -23,11 +23,14 @@ EventsManager.prototype.on = function on(eventName, handler, context, target){
         target:target
     };
 
-    node.applyHandler = function applyHandler(){
+
+    node.applyHandler = function applyHandler(target){
 
         var context = this.context ? this.context : node;
 
-        this.handler.apply(context,arguments);
+        if(typeof target === 'undefined' || target === null || this.target === target){
+            this.handler.apply(context,arguments);
+        }
 
         if(this.next){
             this.next.applyHandler.apply(this.next,arguments);
@@ -37,6 +40,7 @@ EventsManager.prototype.on = function on(eventName, handler, context, target){
     var handlers = this._eventsMap[eventName];
 
     handlers.push(node);
+
 
     if(handlers.length>=2){
         var prev = handlers[ handlers.length -2];
@@ -80,7 +84,7 @@ EventsManager.prototype.off = function off(eventName, handler){
 
 };
 
-EventsManager.prototype.trigger = function trigger(eventName){
+EventsManager.prototype.trigger = function trigger(eventName, target){
 
     if(typeof this._eventsMap[eventName] == 'undefined'){
         return;
@@ -92,26 +96,36 @@ EventsManager.prototype.trigger = function trigger(eventName){
     node.applyHandler.apply(node,args);
 };
 
-var eventsManager = new EventsManager();
+document.addEventListener('DOMContentLoaded',function(){
+
+    var eventsManager = new EventsManager();
 
 
-function node1(){console.log('node1');}
-function node2(){console.log('node2');}
-function node3(){console.log('node3');}
-function node4(){console.log('node4');}
-function node5(){console.log('node5');}
+    function node1(){console.log('node1');}
+    function node2(){console.log('node2');}
+    function node3(){console.log('node3');}
+    function node4(){console.log('node4');}
+    function node5(){console.log('node5');}
+    function node6(){console.log('node6');}
 
-eventsManager.on('test',node1);
-eventsManager.on('test',node2);
-eventsManager.on('test',node3);
+    eventsManager.on('test',node1);
+    eventsManager.on('test',node2);
+    eventsManager.on('test',node3);
 //eventsManager.off('test',node3);
 
-eventsManager.on('test',node4);
+    eventsManager.on('test',node4);
+
+    var testElement = document.getElementById('test');
+
+    eventsManager.on('test',node5,null,testElement);
+
+    eventsManager.off('test',node5);
+
+    eventsManager.on('test',node6,null,testElement);
 
 
+    eventsManager.trigger('test',testElement,'bla','asdasdasd','asda','qweqwe');
 
-eventsManager.on('test',node5);
+});
 
-eventsManager.off('test',node5);
 
-eventsManager.trigger('test','bla','asdasdasd','asda','qweqwe');
