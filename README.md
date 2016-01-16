@@ -2,6 +2,7 @@
 
 ## Get start
 
+```javascript
 document.addEventListener('DOMContentLoaded',function(){
 
     var eventsManager = new EventsManager();
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded',function(){
     eventsManager.on('test',node1);
     eventsManager.on('test',node2);
     eventsManager.on('test',node3);
-//eventsManager.off('test',node3);
+    eventsManager.off('test',node3);
 
     eventsManager.on('test',node4);
 
@@ -33,3 +34,4 @@ document.addEventListener('DOMContentLoaded',function(){
     eventsManager.trigger('test',testElement,'bla','asdasdasd','asda','qweqwe');
 
 });
+```
