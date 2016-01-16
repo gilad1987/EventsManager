@@ -30,12 +30,13 @@ eventsManager.on('eventName',handler,null,targetElement);
 ```
 
 **(3)** Trigger event:
+
+You can pass params form the third params
+
 ```javascript
 
 // event name
 // target 
-
-You can pass params form the third params
 
 eventsManager.trigger('eventName',targetElement,'param1','param2','param3','etc ...');
 ```
