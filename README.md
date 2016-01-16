@@ -1,4 +1,4 @@
-# EventsManager
+# Events manager
 
 ## Get start
 
