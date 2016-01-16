@@ -1,8 +1,26 @@
 
+/**
+ *
+ * @constructor
+ */
 function EventsManager(){
+
+    /**
+     * Mapping of all event as subscribe in the instance
+     * @type {{}}
+     * @private
+     */
     this._eventsMap = {};
 }
 
+/**
+ * Subscribe to event.
+ * @param eventName
+ * @param handler
+ * @param context
+ * @param target
+ * @returns {boolean}
+ */
 EventsManager.prototype.on = function on(eventName, handler, context, target){
 
     var _this = this;
@@ -15,6 +33,10 @@ EventsManager.prototype.on = function on(eventName, handler, context, target){
         this._eventsMap[eventName] = [];
     }
 
+    /**
+     *
+     * @type {{next: null, previous: null, handler: *, context: null, target: *, applyHandler: node.applyHandler}}
+     */
     var node = {
         next:null,
         previous:null,
@@ -24,6 +46,10 @@ EventsManager.prototype.on = function on(eventName, handler, context, target){
     };
 
 
+    /**
+     *
+     * @param target
+     */
     node.applyHandler = function applyHandler(target){
 
         var context = this.context ? this.context : node;
@@ -49,6 +75,11 @@ EventsManager.prototype.on = function on(eventName, handler, context, target){
     }
 };
 
+/**
+ * Remove subscribe function
+ * @param eventName
+ * @param handler
+ */
 EventsManager.prototype.off = function off(eventName, handler){
 
     if(this._eventsMap[eventName]==='undefined' || this._eventsMap[eventName].length==0){
@@ -84,6 +115,13 @@ EventsManager.prototype.off = function off(eventName, handler){
 
 };
 
+/**
+ * Trigger of all subscribe function of event name, if pass the target
+ * only function as subscribe with the target will be apply
+ *
+ * @param eventName
+ * @param target
+ */
 EventsManager.prototype.trigger = function trigger(eventName, target){
 
     if(typeof this._eventsMap[eventName] == 'undefined'){
@@ -95,5 +133,3 @@ EventsManager.prototype.trigger = function trigger(eventName, target){
 
     node.applyHandler.apply(node,args);
 };
-
-
