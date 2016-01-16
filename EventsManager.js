@@ -41,7 +41,7 @@ EventsManager.prototype.on = function on(eventName, handler, context, target){
         next:null,
         previous:null,
         handler:handler,
-        context:context?context:null,
+        context:context?context:handler,
         target:target
     };
 
@@ -52,10 +52,8 @@ EventsManager.prototype.on = function on(eventName, handler, context, target){
      */
     node.applyHandler = function applyHandler(target){
 
-        var context = this.context ? this.context : node;
-
         if(typeof target === 'undefined' || target === null || this.target === target){
-            this.handler.apply(context,arguments);
+            this.handler.apply(this.context, arguments);
         }
 
         if(this.next){
