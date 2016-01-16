@@ -24,9 +24,14 @@ var targetElement = document.getElementById('test');
 eventsManager.on('eventName',handler,null,targetElement);
 ```
 
-**(3)** Subscribe to event:
+**(3)** Trigger event:
 ```javascript
 eventsManager.trigger('eventName',targetElement,'param1','param2','param3','etc ...');
+```
+
+**(4)** Unsubscribe to event:
+```javascript
+eventsManager.off('eventName',handler);
 ```
 
 
