@@ -1,4 +1,4 @@
-# Events manager ( by gilad takoni )
+# Events manager ( by Gilad takoni )
 
 ## Get start
 
