@@ -9,7 +9,7 @@ var eventsManager = new EventsManager();
 
 ```
 
-**(2)** Subscribe to event:
+**(2)** Subscribe to an event:
 
 ```javascript
 function handler(){console.log('node1');}
@@ -17,7 +17,7 @@ function handler(){console.log('node1');}
 eventsManager.on('test',handler);
 ```
 
-You can pass the target
+You can pass a target
 ```javascript
 var targetElement = document.getElementById('test');
 
@@ -31,7 +31,7 @@ eventsManager.on('eventName',handler,null,targetElement);
 
 **(3)** Trigger event:
 
-You can pass arguments to function
+You can pass arguments to a function
 
 ```javascript
 
@@ -41,7 +41,7 @@ You can pass arguments to function
 eventsManager.trigger('eventName',targetElement,'param1','param2','param3','etc ...');
 ```
 
-**(4)** Unsubscribe to event:
+**(4)** Unsubscribe to an event:
 ```javascript
 eventsManager.off('eventName',handler);
 ```
