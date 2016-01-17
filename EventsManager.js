@@ -71,6 +71,8 @@ EventsManager.prototype.on = function on(eventName, handler, context, target){
         node.previous = prev;
         prev.next = node;
     }
+
+    return this;
 };
 
 /**
@@ -110,6 +112,7 @@ EventsManager.prototype.off = function off(eventName, handler){
         }
     }
 
+    return this;
 
 };
 
@@ -130,4 +133,34 @@ EventsManager.prototype.trigger = function trigger(eventName, target){
     var node = this._eventsMap[eventName][0];
 
     node.applyHandler.apply(node,args);
+
+    return this;
 };
+
+
+document.addEventListener('DOMContentLoaded',function(){
+
+    var eventsManager = new EventsManager();
+
+
+    function node1(){console.log('node1');}
+    function node2(){console.log('node2');}
+    function node3(){console.log('node3');}
+    function node4(){console.log('node4');}
+    function node5(){console.log('node5');}
+    function node6(){console.log('node6');}
+
+    var testElement = document.getElementById('test');
+
+    eventsManager
+        .on('test',node1)
+        .on('test',node2)
+        .on('test',node3)
+        .off('test',node3)
+        .on('test',node4)
+        .on('test',node5,null,testElement)
+        .off('test',node5)
+        .on('test',node6,null,testElement)
+        .trigger('test',testElement,'param1','param2','param3','param4','etc ...');
+
+});
