@@ -11,6 +11,7 @@ function EventsManager(){
      * @private
      */
     this._eventsMap = new Map();
+
 }
 
 /**
@@ -126,7 +127,6 @@ EventsManager.prototype.off = function off(eventName, handler){
  * @param target
  */
 EventsManager.prototype.trigger = function trigger(eventName, target){
-
 
     if(this._eventsMap.has(eventName)===false){
         return this;
