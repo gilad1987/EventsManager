@@ -61,23 +61,18 @@ document.addEventListener('DOMContentLoaded',function(){
     function node5(){console.log('node5');}
     function node6(){console.log('node6');}
 
-    eventsManager.on('test',node1);
-    eventsManager.on('test',node2);
-    eventsManager.on('test',node3);
-    eventsManager.off('test',node3);
-
-    eventsManager.on('test',node4);
-
     var testElement = document.getElementById('test');
 
-    eventsManager.on('test',node5,null,testElement);
-
-    eventsManager.off('test',node5);
-
-    eventsManager.on('test',node6,null,testElement);
-
-
-    eventsManager.trigger('test',testElement,'param1','param2','param3','param4','etc ...');
+    eventsManager
+        .on('test',node1)
+        .on('test',node2)
+        .on('test',node3)
+        .off('test',node3)
+        .on('test',node4)
+        .on('test',node5,null,testElement)
+        .off('test',node5)
+        .on('test',node6,null,testElement)
+        .trigger('test',testElement,'param1','param2','param3','param4','etc ...');
 
 });
 ```
