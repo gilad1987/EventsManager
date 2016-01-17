@@ -24,7 +24,7 @@ function EventsManager(){
 EventsManager.prototype.on = function on(eventName, handler, context, target){
 
     if(typeof handler != 'function'){
-        return false;
+        return this;
     }
 
     var map = this._eventsMap,
@@ -85,8 +85,8 @@ EventsManager.prototype.off = function off(eventName, handler){
     var map = this._eventsMap,
         collectionHandlers = map.get(eventName);
 
-    if( (collectionHandlers == 'undefined')  || collectionHandlers.length == 0 ){
-        return;
+    if( (typeof collectionHandlers == 'undefined')  || collectionHandlers.length == 0 ){
+        return this;
     }
 
     var length = collectionHandlers.length,
@@ -129,7 +129,7 @@ EventsManager.prototype.trigger = function trigger(eventName, target){
 
 
     if(this._eventsMap.has(eventName)===false){
-        return;
+        return this;
     }
 
     var args = [].slice.call(arguments,1);
@@ -139,6 +139,33 @@ EventsManager.prototype.trigger = function trigger(eventName, target){
 
     return this;
 };
+
+document.addEventListener('DOMContentLoaded',function(){
+
+    var eventsManager = new EventsManager();
+
+
+    function node1(){console.log('node1');}
+    function node2(){console.log('node2');}
+    function node3(){console.log('node3');}
+    function node4(){console.log('node4');}
+    function node5(){console.log('node5');}
+    function node6(){console.log('node6');}
+
+    var testElement = document.getElementById('test');
+
+    eventsManager
+        .on('test',node1)
+        .on('test',node2)
+        .on('test',node3)
+        .off('test',node3)
+        .on('test',node4)
+        .on('test',node5,null,testElement)
+        .off('test',node5)
+        .on('test',node6,null,testElement)
+        .trigger('test',testElement,'param1','param2','param3','param4','etc ...');
+
+});
 
 
 

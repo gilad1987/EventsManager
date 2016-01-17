@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded',function(){
     var testElement = document.getElementById('test');
 
     eventsManager
+        .off('test',node1)
         .on('test',node1)
         .on('test',node2)
         .on('test',node3)
