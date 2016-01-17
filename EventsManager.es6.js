@@ -6,21 +6,22 @@ class EventsManager {
          * @type {{}}
          * @private
          */
-        this._eventsMap = {};
+        this._eventsMap = new Map();
     }
 
     on(eventName, handler, context, target) {
-
-        const _this = this;
 
         if(typeof handler != 'function'){
             return false;
         }
 
-        if(typeof this._eventsMap[eventName] == 'undefined'){
-            this._eventsMap[eventName] = [];
+        let map = this._eventsMap, handlersCollection;
+
+        if( !map.has(eventName) ){
+            handlersCollection = map.set(eventName,[]);
         }
 
+        handlersCollection = map.get(eventName);
         /**
          *
          * @type {{next: null, previous: null, handler: *, context: null, target: *, applyHandler: node.applyHandler}}
@@ -40,7 +41,7 @@ class EventsManager {
          */
         node.applyHandler = function applyHandler(target) {
 
-            if(typeof target === 'undefined' || target === null || this.target === target){
+            if( target == 'undefined' || target === null || this.target === target){
                 this.handler.apply(this.context, arguments);
             }
 
@@ -49,35 +50,37 @@ class EventsManager {
             }
         };
 
-        const handlers = this._eventsMap[eventName];
-
-        handlers.push(node);
+        handlersCollection.push(node);
 
 
-        if(handlers.length>1){
-            const prev = handlers[ handlers.length -2];
+        if(handlersCollection.length>1){
+            const prev = handlersCollection[ handlersCollection.length -2];
             node.previous = prev;
             prev.next = node;
         }
+
+        return this;
     }
 
     off(eventName, handler) {
 
-        if(this._eventsMap[eventName]==='undefined' || this._eventsMap[eventName].length==0){
+        const map = this._eventsMap, collectionHandlers = map.get(eventName);
+
+        if( (collectionHandlers == 'undefined')  || collectionHandlers.length == 0 ){
             return;
         }
 
-        let events = this._eventsMap[eventName], length = events.length, i=0;
+        let length = collectionHandlers.length, i=0;
 
 
         for(;i<length;i++){
 
-            if(events[i].handler === handler){
+            if(collectionHandlers[i].handler === handler){
 
-                const prev = events[i].previous;
-                let next = events[i].next;
+                const prev = collectionHandlers[i].previous;
+                let next = collectionHandlers[i].next;
 
-                events.splice(i, 1);
+                collectionHandlers.splice(i, 1);
 
                 if(prev && typeof prev.next !== null){
                     prev.next = next;
@@ -91,18 +94,22 @@ class EventsManager {
             }
         }
 
+        return this;
 
     }
 
     trigger(eventName, target) {
 
-        if(typeof this._eventsMap[eventName] == 'undefined'){
+
+        if(this._eventsMap.has(eventName)===false){
             return;
         }
 
         const args = [].slice.call(arguments,1);
-        const node = this._eventsMap[eventName][0];
+        const node = this._eventsMap.get(eventName)[0];
 
         node.applyHandler.apply(node, args);
+
+        return this;
     }
 }
