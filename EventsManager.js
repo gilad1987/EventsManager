@@ -86,7 +86,12 @@ EventsManager.prototype.off = function off(eventName, handler){
     var map = this._eventsMap,
         collectionHandlers = map.get(eventName);
 
-    if( (typeof collectionHandlers == 'undefined')  || collectionHandlers.length == 0 ){
+    if( !collectionHandlers ||  ( collectionHandlers.constructor !== Array )  || ( collectionHandlers.length == 0 ) ){
+        return this;
+    }
+
+    if(typeof handler !== 'function'){
+        map.set(eventName,[]);
         return this;
     }
 
