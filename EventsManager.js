@@ -108,11 +108,11 @@ EventsManager.prototype.off = function off(eventName, handler){
 
             collectionHandlers.splice(i,1);
 
-            if(prev && typeof prev.next !== null){
+            if(prev &&  prev.next !== null){
                 prev.next = next;
             }
 
-            if( next && typeof next.previous !== null){
+            if( next &&  next.previous !== null){
                 next.previous=prev;
             }
 
