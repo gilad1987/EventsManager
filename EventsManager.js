@@ -113,7 +113,7 @@ EventsManager.prototype.off = function off(eventName, handler){
             }
 
             if( next &&  next.previous !== null){
-                next.previous=prev;
+                next.previous = prev;
             }
 
             break;
