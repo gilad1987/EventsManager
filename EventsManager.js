@@ -7,7 +7,7 @@ function EventsManager(){
 
     /**
      * Mapping of all event as subscribe in the instance
-     * @type {{}}
+     * @type {Map}
      * @private
      */
     this._eventsMap = new Map();
@@ -20,7 +20,7 @@ function EventsManager(){
  * @param handler
  * @param context
  * @param target
- * @returns {boolean}
+ * @returns {boolean|EventsManager}
  */
 EventsManager.prototype.on = function on(eventName, handler, context, target){
 
@@ -36,6 +36,7 @@ EventsManager.prototype.on = function on(eventName, handler, context, target){
     }
 
     handlersCollection = map.get(eventName);
+
     /**
      *
      * @type {{next: null, previous: null, handler: *, context: null, target: *, applyHandler: node.applyHandler}}
